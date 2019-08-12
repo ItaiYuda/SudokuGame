@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
+        <title>Sudoku Brain Challenge</title>
+    </head>
+    <body>
+        <div id="navBar">
+            <div id="logo">
+                Sudoku Brain Challenge
+            </div>
+            <ul id="navBarLogIn" class="btnsNavBar navBarButtons">
+                <li><button class="btnWhiteBorder" onclick="resetDiff()" >Levels</button></li>
+                <li><button class="btnWhite" onclick="logOut()">Log-Out</button></li>
+            </ul>
+            <ul id="navBarLogOut" class="btnsNavBar navBarButtons">
+                <li><button class="btnWhiteBorder" onclick="switchToRegister()">Register</button></li>
+                <li><button class="btnWhiteBorder" onclick="switchToLogIn()">Log-In</button></li>
+            </ul>
+        </div>
+        <div id="container-start">
+            <div id="container-img-start">
+                <img src="./utilities/brainy.png" alt="brain pic" />
+            </div>
+            <div class="logInAndRegister" id="container-register">
+                <h2>Register</h2>
+                <form name="register-form" onsubmit="event.preventDefault();register()">
+                    <div>
+                        <input type="text" name="username" placeholder="Username">
+                        <label class="errorMsg" id="msgUserReg"></label>
+                    </div>
+                    <div>
+                        <input type="password" name="pwd1" placeholder= "Password">
+                        <label class="errorMsg" id="msgPwd1Reg"></label>
+                    </div>
+                    <div>
+                        <input type="password" name="pwd2" placeholder= "Confirm Password">
+                        <label class="errorMsg" id="msgPwd2Reg"></label>
+                    </div>
+                    <input type="submit" value="REGISTER" />
+                </form>
+                <div class="switchLogInAndRegister">
+                    <label>Already have an account?</label>
+                    <button class="alreadyIn" onclick="switchToLogIn()">back to LogIn</button>
+                </div>
+            </div>
+            <div class="logInAndRegister" id="container-logIn" >
+                <h2>Log-In</h2>
+                <form onsubmit="event.preventDefault();logIn()">
+                    <div>
+                        <input type="text" placeholder="Username" id="username" />
+                        <label class="errorMsg" id="msgUserLogIn"></label>
+                    </div>
+                    <div>
+                        <input type="password" placeholder= "Password" id="password" />
+                        <label class="errorMsg" id="msgPwdLogIn"></label>
+                    </div> 
+                    <input type="submit" name="LogIn" value="LOGIN" />
+                </form>
+                <div class="switchLogInAndRegister">
+                    <label>Not registrated yet?</label>
+                    <button class="alreadyIn" onclick="switchToRegister()">Creat an account</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="difficult-choise" >
+            <h2>Welcome <label id="printUserName"></label></h2>
+            <img id="imgBrainGym" src="./utilities/braingym.jpg" /> 
+            <h4>Difficulty level: </h4>
+            <div class="container-buttons">
+                <button class="btnLevel" onclick="diffcultChoise(0)">Easy</button>
+                <button class="btnLevel" onclick="diffcultChoise(1)">Medium</button>
+                <button class="btnLevel" onclick="diffcultChoise(2)">Hard</button>
+            </div>
+        </div>
+        
+        <div id="container-board">
+            <div class="square">
+                <input type="number" id="00" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="01" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="02" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="10" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="11" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="12" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="20" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="21" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="22" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="03" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="04" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="05" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="13" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="14" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="15" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="23" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="24" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="25" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="06" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="07" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="08" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="16" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="17" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="18" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="26" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="27" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="28" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="30" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="31" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="32" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="40" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="41" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="42" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="50" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="51" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="52" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="33" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="34" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="35" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="43" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="44" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="45" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="53" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="54" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="55" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="36" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="37" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="38" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="46" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="47" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="48" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="56" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="57" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="58" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="60" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="61" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="62" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="70" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="71" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="72" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="80" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="81" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="82" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="63" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="64" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="65" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="73" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="74" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="75" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="83" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="84" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="85" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="square">
+                <input type="number" id="66" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="67" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="68" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="76" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="77" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="78" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="86" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="87" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+                <input type="number" id="88" class="box" min="1" max="9" onfocus="changeClassOnfocus(this)" onblur="changeClassOnBlur(this)"/>
+            </div>
+            <div class="container-buttons">
+                    <button class="btnLevel" onclick="again()" >Again</button>
+                    <button class="btnLevel" onclick="resetDiff()" >Level</button>
+                    <button class="btnLevel" onclick="finish()" >Finish</button>
+            </div>
+        </div>
+        
+        <div class="popUp" id="losePopUp" >
+            <h2>You Lose!</h2>
+            <div class="container-buttons">
+                <button class="btnLevel" onclick="resetDiff()">New Game</button>
+                <button class="btnLevel" onclick="KeepPlaying()">Keep Playing</button>
+            </div>
+
+        </div>
+        <div class="popUp" id="winPopUp" >
+                <h1>Congrats! You Win</h1>
+                <div class="container-buttons">
+                    <button class="btnLevel" onclick="resetDiff()">New Game</button>
+                </div>
+        </div>
+        <script type="text/javascript" src="script.js"></script>
+        
+    </body>
+</html>
